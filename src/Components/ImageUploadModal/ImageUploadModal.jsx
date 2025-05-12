@@ -120,7 +120,7 @@ const ImageUploadModal=({ isOpen, onClose })=> {
             </div>
             <div className={styles.container}>
       <div className={styles.wrapper}>
-        <spna>No of variations</spna>
+        <span>No of variations</span>
         <div className={styles.inputContainer}>
           <input 
             type="text" 
