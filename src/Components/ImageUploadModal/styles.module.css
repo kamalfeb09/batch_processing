@@ -1,0 +1,240 @@
+/* ImageUploadModal.css */
+
+/* Modal styling */
+
+/* styles.module.css */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    /* background-color: #f3f4f6; */
+    padding: 1rem;
+  }
+  .uploadfiles{
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .textcontainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .wrapper {
+    width: 100%;
+    max-width: 28rem;
+    text-align: left;
+  }
+  
+  .inputContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .input {
+    flex-grow: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: #374151;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+  }
+  
+  .button {
+    padding: 0.75rem 1.5rem;
+    background-color: #8b5cf6;
+    color: white;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #7c3aed;
+  }
+  
+  .button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5);
+  }
+  
+  .description {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    padding-left: 0.25rem;
+  }
+.modaloverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+    /* border: 1px solid red; */
+  }
+  
+  .modalcontainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    padding: 1.5rem;
+  }
+  
+  /* Header styles */
+  .modalheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .modalheader h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .uploadbutton {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+  }
+  
+  .uploadbutton svg {
+    margin-right: 0.5rem;
+  }
+  
+  .hiddeninput {
+    display: none;
+  }
+  
+  /* Drop area styles */
+  .droparea {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .droparea.active {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+  }
+  
+  .uploadicon {
+    color: #9ca3af;
+    margin-bottom: 1rem;
+  }
+  
+  .droparea p {
+    text-align: center;
+    font-size: 1.125rem;
+    margin: 0;
+  }
+  
+  /* URL input styles */
+  .urlinputcontainer {
+    margin-top: 1rem;
+  }
+  
+  .urlinput {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #6b7280;
+  }
+  .uppersection{
+    display: flex;
+    gap: 20px;
+    /* justify-content: center; */
+    align-items: center;
+  }
+  .clipboardinfo {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 1.125rem;
+  }
+  .box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:258px;
+    height: 124px;
+    background-color: #f7f7f7;
+    border-radius: 24px;
+  }
+  /* Footer styles */
+  .modalfooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  .cancelbutton {
+    background-color: #f3f4f6;
+    color: #111827;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .continuebutton {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  /* App styling */
+  .app {
+    padding: 2rem;
+  }
+  
+  .openmodalbutton {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
