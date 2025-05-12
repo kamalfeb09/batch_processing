@@ -55,16 +55,44 @@ export const getBucketImageUrlFromFile = async (
   }
 };
 
+export const uploadImageToS3 = async (signedUrls, files) => {
+  try {
+    const uploadPromises = signedUrls.map(async (signedUrl, index) => {
+      const file = files[index];
+      const response = await fetch(signedUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": file.type,
+        },
+        body: file,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    });
+
+    await Promise.all(uploadPromises);
+
+    return {
+      success: true,
+      urls: signedUrls?.map((url) => url.split("?")[0]),
+    };
+  } catch (error) {
+    console.error("Error uploading images:", error);
+    return false;
+  }
+};
 
 export const getSignedUrls = async (count) => {
   try {
     const response = await fetch(
       `${API_BASE_URL}/app/api/v1/bulk-processing/signed-urls?count=${count}`,
       {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-        }
+          "Content-Type": "application/json",
+        },
       }
     );
 
@@ -75,7 +103,7 @@ export const getSignedUrls = async (count) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching signed URLs:', error);
+    console.error("Error fetching signed URLs:", error);
     throw error;
   }
-}; 
+};

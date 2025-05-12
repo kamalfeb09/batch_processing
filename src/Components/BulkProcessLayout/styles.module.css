@@ -186,3 +186,20 @@
 .deleteBtn:hover {
   color: #dc2626;
 }
+.mainScreenContainer {
+  height:97%;
+  /* width:100%; */
+  background: #fff;
+  padding: 12px 12px 36px 12px;
+}
+.imageContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.eachImage {
+  height: 200px;
+}
