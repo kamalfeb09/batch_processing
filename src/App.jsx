@@ -1,18 +1,25 @@
+import { CURRENT_SCREEN } from "./common/utils";
+import BulkProcessingLayout from "./Components/BulkProcessLayout/Index";
+import ImageUploadModal from "./Components/ImageUploadModal/ImageUploadModal";
+import { ImageModalState } from "./context/ImageUpload";
+import styles from "./Components/BulkProcessLayout/styles.module.css";
+import EmailModal from "./Components/EmailModal/EmailModal";
 
-import BulkProcessingLayout from './Components/BulkProcessLayout/Index'
-import EmailModal from './Components/EmailModal/EmailModal';
-import ImageUploadModal from './Components/ImageUploadModal/ImageUploadModal'
 function App() {
+  const { currentScreen } = ImageModalState();
   const handleClose = () => {
     // Handle any cleanup or state updates when modal closes
   };
   return (
-    <>
-     <BulkProcessingLayout />
-
-<EmailModal  onClose={handleClose} />
-    </>
-  )
+    <div className={styles.parentContainer}>
+      {currentScreen === CURRENT_SCREEN.BULK_PROCESS_SCREEN && (
+        <BulkProcessingLayout />
+      )}
+      {currentScreen === CURRENT_SCREEN.UPLOAD_SCREEN && <ImageUploadModal />}
+      {/* {currentScreen === CURRENT_SCREEN.LOGIN_SCREEN && <LoginScreen />} */}
+      <EmailModal  onClose={handleClose} />
+    </div>
+  );
 }
 
-export default App
+export default App;
