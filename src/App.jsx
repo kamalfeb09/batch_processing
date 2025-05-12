@@ -1,15 +1,9 @@
 
-import './App.css'
-import ImageUploadModal from './Components/ImageUploadModal/ImageUploadModal'
-import UploadModal from './Components/UploadModal'
-import { ImageModalState } from './context/ImageUpload';
-
+import BulkProcessingLayout from './Components/BulkProcessLayout/Index'
 function App() {
-  const {isImageModalOpen,setIsImageModalOpen}=ImageModalState();
   return (
     <>
-     
-      <ImageUploadModal isOpen={isImageModalOpen} onClose={setIsImageModalOpen} />
+     <BulkProcessingLayout />
     </>
   )
 }
