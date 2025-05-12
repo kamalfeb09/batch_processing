@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './EmailModal.css';
+import { ImageModalState } from '../../context/ImageUpload';
 
 const EmailModal = ({ onClose }) => {
  
-  const {email,setImageExtension,setEmail,imageExtension} = useContext(ImageModal);
+  const {email,setImageExtension,setEmail,imageExtension} = ImageModalState();
   const [isOpen, setIsOpen] = useState(true);
 
   const handleSubmit = (e) => {
