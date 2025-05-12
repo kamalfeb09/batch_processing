@@ -1,34 +1,29 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './EmailModal.css';
 import { ImageModalState } from '../../context/ImageUpload';
+import { CURRENT_SCREEN } from '../../common/utils';
 
-const EmailModal = ({ onClose }) => {
+const EmailModal = () => {
  
-  const {email,setImageExtension,setEmail,imageExtension} = ImageModalState();
-  const [isOpen, setIsOpen] = useState(true);
+  const {email,setImageExtension,setEmail,imageExtension,setCurrentScreen} = ImageModalState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
     console.log('Email:', email);
     console.log('Image Extension:', imageExtension);
-    setIsOpen(false);
-    onClose();
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
-    onClose();
-  };
 
-  if (!isOpen) return null;
+  const onSubmit = () => {
+    setCurrentScreen(CURRENT_SCREEN.UPLOAD_SCREEN);
+  }
 
   return (
-    <div className="modal-overlay">
+    // <div className="modal-overlay">
       <div className="modal-content">
         <div className="modal-header">
           <h2>Enter Details</h2>
-          <button className="close-button" onClick={handleClose}>×</button>
         </div>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
@@ -54,11 +49,11 @@ const EmailModal = ({ onClose }) => {
             />
           </div>
           <div className="modal-footer">
-            <button type="submit" className="submit-button">Submit</button>
+            <button type="submit" className="submit-button" onClick={onSubmit}>Submit</button>
           </div>
         </form>
       </div>
-    </div>
+    // </div>
   );
 };
 
