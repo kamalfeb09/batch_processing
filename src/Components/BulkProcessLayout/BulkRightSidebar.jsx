@@ -1,11 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import classes from "./styles.module.css";
+import { createWorkflow, createBulkProcessingJob } from "../../common/api";
+import { ImageModalState } from "../../context/ImageUpload";
 
 const BulkRightSidebar = ({ steps, removeStep, editStep, moveStep }) => {
   const [draggedIdx, setDraggedIdx] = useState(null);
   const [editingStep, setEditingStep] = useState(null);
   const [isValid, setIsValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const dragOverIdx = useRef(null);
+  const {email,inputImages}=ImageModalState();
 
   // Check if all required fields are filled
   useEffect(() => {
@@ -47,9 +51,34 @@ const BulkRightSidebar = ({ steps, removeStep, editStep, moveStep }) => {
     });
   };
 
-  const handleStartBatchProcess = () => {
+  const handleStartBatchProcess = async () => {
     if (!isValid) return;
-    console.log('Starting batch process with steps:', steps);
+    
+    try {
+      setIsLoading(true);
+     
+
+      // First create the workflow
+      const workflowResult = await createWorkflow(email, steps);
+      console.log('Workflow created successfully:', workflowResult);
+
+      // Then create the bulk processing job
+      
+
+      const jobResult = await createBulkProcessingJob(
+        inputImages,
+        workflowResult.data.workFlow_id,
+        4
+      );
+      console.log('Bulk processing job created successfully:', jobResult);
+      
+      // Handle success (e.g., show success message, redirect, etc.)
+    } catch (error) {
+      console.error('Failed to start batch process:', error);
+      // Handle error (e.g., show error message)
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -225,9 +254,9 @@ const BulkRightSidebar = ({ steps, removeStep, editStep, moveStep }) => {
       <button 
         onClick={handleStartBatchProcess}
         className={classes.startBatchButton}
-        disabled={!isValid}
+        disabled={!isValid || isLoading}
       >
-        Start Batch Process
+        {isLoading ? 'Processing...' : 'Start Batch Process'}
       </button>
     </div>
   );

@@ -107,3 +107,89 @@ export const getSignedUrls = async (count) => {
     throw error;
   }
 };
+
+export const createWorkflow = async (email, workflowSteps) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/app/api/v1/bulk-processing/workflow/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-user-current-workspace': '67fc01578bf5180404924e8f'
+      },
+      body: JSON.stringify({
+        email,
+        workFlowSteps: workflowSteps.map(step => {
+          const params = {};
+          if (step.tool === 'IMAGE_UPSCALER') {
+            params.width = parseInt(step.value.width);
+            params.height = parseInt(step.value.height);
+          }
+          return {
+            tool: step.tool,
+            params: params
+          };
+        })
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error creating workflow:', error);
+    throw error;
+  }
+};
+
+export const createBulkProcessingJob = async (imageUrls, workflowId, outputs = 4) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/app/api/v1/bulk-processing/jobs/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        image_urls: imageUrls,
+        workflowId,
+        outputs
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error creating bulk processing job:', error);
+    throw error;
+  }
+};
+
+  export const getOrderstatusByOrderId = async (orderId) => {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/app/api/v5/user_activity/getUserActivity?order_id=${orderId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching signed URLs:", error);
+      throw error;
+    }
+  };
