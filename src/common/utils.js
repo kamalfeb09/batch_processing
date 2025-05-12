@@ -2,6 +2,11 @@ import { PHOT_AI_TOOLS } from "./enum";
 
 export const API_BASE_URL = import.meta.env.VITE_API_URL_DEV;
 
+export const CURRENT_SCREEN = {
+  LOGIN_SCREEN: "LOGIN_SCREEN",
+  UPLOAD_SCREEN: "UPLOAD_SCREEN",
+  BULK_PROCESS_SCREEN: "BULK_PROCESS_SCREEN",
+};
 export const BATCH_PROCESS_TOOLS = [
   {
     id: "BACKGROUND_REMOVER",
