@@ -181,6 +181,7 @@
   }
   .box{
     display: flex;
+    cursor: pointer;
     justify-content: center;
     align-items: center;
     width:258px;

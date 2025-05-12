@@ -1,19 +1,35 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './EmailModal.css';
 import { ImageModalState } from '../../context/ImageUpload';
+import { getSignedUrls } from '../../services/api';
 
 const EmailModal = ({ onClose }) => {
- 
-  const {email,setImageExtension,setEmail,imageExtension} = ImageModalState();
+  const {email, setImageExtension, setEmail, imageExtension} = ImageModalState();
   const [isOpen, setIsOpen] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Email:', email);
-    console.log('Image Extension:', imageExtension);
-    setIsOpen(false);
-    onClose();
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Get signed URLs before closing the modal
+      const signedUrls = await getSignedUrls(20);
+      console.log('Signed URLs:', signedUrls);
+      
+      // Handle form submission here
+      console.log('Email:', email);
+      console.log('Image Extension:', imageExtension);
+      setIsOpen(false);
+      onClose();
+    } catch (err) {
+      setError(err.message);
+      console.error('Error in form submission:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleClose = () => {
@@ -54,8 +70,15 @@ const EmailModal = ({ onClose }) => {
             />
           </div>
           <div className="modal-footer">
-            <button type="submit" className="submit-button">Submit</button>
+            <button 
+              type="submit" 
+              className="submit-button"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Loading...' : 'Submit'}
+            </button>
           </div>
+          {error && <div className="error-message">{error}</div>}
         </form>
       </div>
     </div>

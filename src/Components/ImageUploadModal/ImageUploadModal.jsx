@@ -1,6 +1,7 @@
 // ImageUploadModal.jsx
 import { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.css";
+import { getSignedUrls } from '../../common/api';
 
 function UploadIcon() {
   return (
@@ -109,11 +110,18 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
     setImageUrl(e.target.value);
   };
 
-  const handleFileInputChange = (e) => {
+  const handleFileInputChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
-      // Handle the file upload
-      console.log("File selected:", e.target.files[0]);
-      // You would typically process the file here
+        console.log("File selected:", e.target.files.length);
+      try {
+        // Get signed URLs for the files
+        const signedUrls = await getSignedUrls(e.target.files.length);
+        console.log("Signed URLs:", signedUrls.data.presignedUrls);
+        console.log("File selected:", e.target.files[0]);
+        // You can now use the signed URLs to upload the files
+      } catch (error) {
+        console.error("Error getting signed URLs:", error);
+      }
     }
   };
 
@@ -128,8 +136,11 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
         <span>Add folder,images or drag and drop</span>
       </div>
       <div className={styles.uppersection}>
-        <div className={styles.box}>Upload Images</div>
-        <div className={styles.box}>Upload Folder</div>
+        <div  className={styles.box} onClick={handleUploadClick}>Upload Images
+
+        </div>
+        <input type="file" multiple ref={fileInputRef} onChange={handleFileInputChange} className={styles.hiddeninput} />
+        {/* <div className={styles.box}>Upload Folder</div> */}
       </div>
       <div className={styles.container}>
         <div className={styles.wrapper}>
