@@ -55,6 +55,7 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
   const handleInputChange = (e) => {
     setVariations(e.target.value);
   };
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleStartBatch = () => {
     // Add batch process logic here
@@ -99,6 +100,7 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
 
   const handleFiles = async(files) => {
     try {
+      setIsLoading(true);
       // Get signed URLs for the files
       const data = await getSignedUrls(files.length);
       const signedUrls = data.data.preSignedUrls;
@@ -108,10 +110,13 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
       // You can now use the signed URLs to upload the files
     } catch (error) {
       console.error("Error getting signed URLs:", error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   const handleUploadClick = () => {
+    if (isLoading) return;
     fileInputRef.current.click();
   };
 
@@ -132,7 +137,11 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
         <div className={styles.box}>
           {isDragActive ? (
             <span>Drop files here</span>
+          ) : 
+          isLoading ? (
+            <span>Uploading...</span>
           ) : (
+
             <>
               Upload Images
               <span>OR</span>
