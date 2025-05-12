@@ -49,6 +49,7 @@ const EmailModal = () => {
             <input
               type="email"
               id="email"
+              className='input-field'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
@@ -61,6 +62,7 @@ const EmailModal = () => {
               type="text"
               id="imageExtension"
               value={imageExtension}
+              className='input-field'
               onChange={(e) => setImageExtension(e.target.value)}
               placeholder="Enter image extension (e.g., jpg, png)"
               required
