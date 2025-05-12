@@ -10,6 +10,20 @@ const ImageModalContext = ({ children }) => {
   const [email, setEmail] = useState("");
   const [imageExtension, setImageExtension] = useState("");
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [inputImages, setInputImages] = useState([
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+    // "https://strapi-wasabi-bucket-prod-cdn.phot.ai/AI_Shadow_Generator_f1ee08ba88.png",
+  ]);
 
   return (
     <ImageModal.Provider
@@ -22,6 +36,8 @@ const ImageModalContext = ({ children }) => {
         setIsImageModalOpen,
         currentScreen,
         setCurrentScreen,
+        inputImages,
+        setInputImages,
       }}
     >
       {children}

@@ -1,7 +1,9 @@
 // ImageUploadModal.jsx
 import { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.css";
-import { getSignedUrls } from '../../common/api';
+import { getSignedUrls, uploadImageToS3 } from "../../common/api";
+import { ImageModalState } from "../../context/ImageUpload";
+import { CURRENT_SCREEN } from "../../common/utils";
 
 function UploadIcon() {
   return (
@@ -49,7 +51,7 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
   const fileInputRef = useRef(null);
   const modalRef = useRef(null);
   const [variations, setVariations] = useState("2");
-
+  const { setInputImages, setCurrentScreen } = ImageModalState();
   const handleInputChange = (e) => {
     setVariations(e.target.value);
   };
@@ -58,24 +60,6 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
     // Add batch process logic here
     console.log(`Starting batch process with ${variations} variations`);
   };
-
-  //   useEffect(() => {
-  //     const handleClickOutside = (event) => {
-  //       if (modalRef.current && !modalRef.current.contains(event.target)) {
-  //         onClose();
-  //       }
-  //     };
-
-  //     if (isOpen) {
-  //       document.addEventListener('mousedown', handleClickOutside);
-  //     }
-
-  //     return () => {
-  //       document.removeEventListener('mousedown', handleClickOutside);
-  //     };
-  //   }, [isOpen, onClose]);
-
-  //   if (!isOpen) return null;
 
   const handleDragEnter = (e) => {
     e.preventDefault();
@@ -101,29 +85,31 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       // Handle the file upload
-      console.log("File dropped:", e.dataTransfer.files[0]);
+      console.log("File dropped:", e.dataTransfer.files);
       // You would typically process the file here
     }
   };
 
-  const handleUrlChange = (e) => {
-    setImageUrl(e.target.value);
-  };
-
   const handleFileInputChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
-        console.log("File selected:", e.target.files.length);
-      try {
-        // Get signed URLs for the files
-        const signedUrls = await getSignedUrls(e.target.files.length);
-        console.log("Signed URLs:", signedUrls.data.presignedUrls);
-        console.log("File selected:", e.target.files[0]);
-        // You can now use the signed URLs to upload the files
-      } catch (error) {
-        console.error("Error getting signed URLs:", error);
-      }
+      console.log("File selected:", e.target.files.length);
+      handleFiles(e.target.files)
     }
   };
+
+  const handleFiles = async(files) => {
+    try {
+      // Get signed URLs for the files
+      const data = await getSignedUrls(files.length);
+      const signedUrls = data.data.preSignedUrls;
+      const uploadResult = await uploadImageToS3(signedUrls, files);
+      setInputImages(uploadResult?.urls);
+      setCurrentScreen(CURRENT_SCREEN.BULK_PROCESS_SCREEN);
+      // You can now use the signed URLs to upload the files
+    } catch (error) {
+      console.error("Error getting signed URLs:", error);
+    }
+  }
 
   const handleUploadClick = () => {
     fileInputRef.current.click();
@@ -133,13 +119,35 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
     <div className={styles.modalcontainer} ref={modalRef}>
       <div className={styles.textcontainer}>
         <span className={styles.uploadfiles}>Upload files</span>
-        <span>Add folder,images or drag and drop</span>
+        <span>Add images or drag and drop</span>
       </div>
-      <div className={styles.uppersection}>
-        <div  className={styles.box} onClick={handleUploadClick}>Upload Images
-
+      <div
+        className={styles.uppersection}
+        onClick={handleUploadClick}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      >
+        <div className={styles.box}>
+          {isDragActive ? (
+            <span>Drop files here</span>
+          ) : (
+            <>
+              Upload Images
+              <span>OR</span>
+              <span>Drag and drop</span>
+            </>
+          )}
         </div>
-        <input type="file" multiple ref={fileInputRef} onChange={handleFileInputChange} className={styles.hiddeninput} />
+        <input
+          type="file"
+          multiple
+          ref={fileInputRef}
+          onChange={handleFileInputChange}
+          className={styles.hiddeninput}
+          accept="image/*"
+        />
         {/* <div className={styles.box}>Upload Folder</div> */}
       </div>
       <div className={styles.container}>

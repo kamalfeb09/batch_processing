@@ -14,16 +14,10 @@ const EmailModal = () => {
     try {
       setIsLoading(true);
       setError(null);
-      
-      // Get signed URLs before closing the modal
-      const signedUrls = await getSignedUrls(20);
-      console.log('Signed URLs:', signedUrls);
-      
-      // Handle form submission here
-      console.log('Email:', email);
-      console.log('Image Extension:', imageExtension);
+    
+      setCurrentScreen(CURRENT_SCREEN.UPLOAD_SCREEN);
+
       setIsOpen(false);
-      // onClose();
     } catch (err) {
       setError(err.message);
       console.error('Error in form submission:', err);
