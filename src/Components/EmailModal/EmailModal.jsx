@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import './EmailModal.css';
 import { ImageModalState } from '../../context/ImageUpload';
 import { getSignedUrls } from '../../services/api';
-
-const EmailModal = ({ onClose }) => {
-  const {email, setImageExtension, setEmail, imageExtension} = ImageModalState();
+import { CURRENT_SCREEN } from '../../common/utils';
+const EmailModal = () => {
+  const {email, setImageExtension, setEmail, setCurrentScreen,imageExtension} = ImageModalState();
   const [isOpen, setIsOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -32,19 +32,16 @@ const EmailModal = ({ onClose }) => {
     }
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
-    onClose();
-  };
 
-  if (!isOpen) return null;
+  const onSubmit = () => {
+    setCurrentScreen(CURRENT_SCREEN.UPLOAD_SCREEN);
+  }
 
   return (
-    <div className="modal-overlay">
+    // <div className="modal-overlay">
       <div className="modal-content">
         <div className="modal-header">
           <h2>Enter Details</h2>
-          <button className="close-button" onClick={handleClose}>×</button>
         </div>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
@@ -81,7 +78,7 @@ const EmailModal = ({ onClose }) => {
           {error && <div className="error-message">{error}</div>}
         </form>
       </div>
-    </div>
+    // </div>
   );
 };
 

@@ -10,7 +10,7 @@ const BulkProcessingLayout = () => {
 
   // Add a tool as a new step
   const addStep = (tool) => {
-    setSteps([...steps, { tool, id: Date.now() }]);
+    setSteps([...steps, { tool: tool.tool, id: Date.now() }]);
   };
 
   // Remove a step by index

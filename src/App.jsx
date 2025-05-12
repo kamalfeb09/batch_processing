@@ -7,17 +7,15 @@ import EmailModal from "./Components/EmailModal/EmailModal";
 
 function App() {
   const { currentScreen } = ImageModalState();
-  const handleClose = () => {
-    // Handle any cleanup or state updates when modal closes
-  };
+
   return (
     <div className={styles.parentContainer}>
       {currentScreen === CURRENT_SCREEN.BULK_PROCESS_SCREEN && (
         <BulkProcessingLayout />
       )}
       {currentScreen === CURRENT_SCREEN.UPLOAD_SCREEN && <ImageUploadModal />}
-      {/* {currentScreen === CURRENT_SCREEN.LOGIN_SCREEN && <LoginScreen />} */}
-      <EmailModal  onClose={handleClose} />
+      {currentScreen === CURRENT_SCREEN.LOGIN_SCREEN && <EmailModal />}
+      {/* <EmailModal  onClose={handleClose} /> */}
     </div>
   );
 }
