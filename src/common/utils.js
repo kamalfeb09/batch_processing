@@ -30,7 +30,7 @@ export const BATCH_PROCESS_TOOLS = [
     description: "Enhance the quality of an image",
     video:
       "https://strapi-wasabi-bucket-prod-cdn.phot.ai/photo_enhancer_924b2637c8.mp4",
-    tool: PHOT_AI_TOOLS.IMAGE_ENHANCER,
+    tool: PHOT_AI_TOOLS.AI_PHOTO_ENHANCER,
   },
   {
     id: "IMAGE_UPSCALER",
@@ -63,7 +63,7 @@ export const BATCH_PROCESS_TOOLS = [
     description: "Blur the background of an image",
     video:
       "https://strapi-wasabi-bucket-prod-cdn.phot.ai/bg_blur_507cf3e2d4.mp4?isPopular=false",
-    tool: PHOT_AI_TOOLS.BACKGROUND_BLUR,
+    tool: PHOT_AI_TOOLS.BLUR_BACKGROUND,
   },
   {
     id: "IMAGE_LIGHT_FIX",
