@@ -10,6 +10,8 @@ const BulkRightSidebar = ({ steps, removeStep, editStep, moveStep }) => {
   const [isLoading, setIsLoading] = useState(false);
   const dragOverIdx = useRef(null);
   const {email,inputImages}=ImageModalState();
+  const [orderStatus,setOrderStatus]=useState(null);
+
 
   // Check if all required fields are filled
   useEffect(() => {
@@ -68,7 +70,8 @@ const BulkRightSidebar = ({ steps, removeStep, editStep, moveStep }) => {
       const jobResult = await createBulkProcessingJob(
         inputImages,
         workflowResult.data.workFlow_id,
-        4
+        4,
+        setOrderStatus
       );
       console.log('Bulk processing job created successfully:', jobResult);
       
