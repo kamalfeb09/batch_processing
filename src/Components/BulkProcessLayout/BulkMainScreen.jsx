@@ -10,7 +10,7 @@ const BulkMainScreen = () => {
       <div className={classes.imageContainer}>
       {inputImages.map((image) => (
         <div className={classes.eachImage}>
-          <img src={image} alt="Bulk Process" height="100%" width="100%" style={{objectFit: "contain", border: "1px solid #000", borderRadius: '8px'}} />
+          <img src={image} alt="Bulk Process" height="100%" width="100%" style={{objectFit: "contain"}} />
         </div>
       ))}
       </div>

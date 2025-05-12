@@ -102,6 +102,8 @@
   flex: 1;
   display: flex;
   height: calc(100vh - 70px);
+  gap: 10px;
+  padding: 10px;
 }
 
 .mainContent {
@@ -202,6 +204,8 @@
 
 .eachImage {
   height: 200px;
+  border: 1px solid #000;
+   border-radius: 8px;
 }
 
 .editSection {
