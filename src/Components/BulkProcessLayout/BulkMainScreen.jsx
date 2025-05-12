@@ -5,9 +5,13 @@ import { ImageModalState } from "../../context/ImageUpload";
  const BulkMainScreen = () => {
   const {isImageModalOpen,setIsImageModalOpen}=ImageModalState();
   return (
-  <>
+ 
+  <div className={classes.maincontainer}>
+
+  
 <ImageUploadModal isOpen={isImageModalOpen} onClose={setIsImageModalOpen} />
-  </>
+  </div>
+  
   );
 };
 
