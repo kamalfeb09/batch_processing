@@ -1,0 +1,131 @@
+.sidebar {
+  width: 240px;
+  z-index: 2;
+  background-color: white;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 12px;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+.toolItem {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: #f3f4f6;
+  border-radius: 0.25rem;
+  cursor: move;
+  transition: background-color 0.2s;
+  color: #000;
+}
+
+.toolItem:hover {
+  background-color: #e5e7eb;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  background-color: #f6f6f6;
+  overflow: hidden;
+  position: relative;
+}
+
+.contentWrapper {
+  flex: 1;
+  display: flex;
+  height: calc(100vh - 70px);
+}
+
+.mainContent {
+  flex: 1 1 0%;
+  background-color: #f9fafb;
+  position: relative;
+}
+
+
+.rightSidebar {
+  width: 272px;
+  border-left: 1px solid #e5e7eb;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 12px;
+}
+
+/* Workflow Step Container */
+.workflowStep {
+  background: #f9fafb;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  padding: 16px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Fixed Steps (Input/Output) */
+.fixedStep {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Dynamic Step Header */
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Step Number */
+.stepNumber {
+  background: #e0e7ff;
+  color: #3730a3;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Tool Name */
+.stepTool {
+  flex: 1;
+  font-weight: 500;
+  color: #1e293b;
+  margin-left: 8px;
+}
+
+/* Action Buttons */
+.editBtn, .deleteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-left: 6px;
+  transition: color 0.2s;
+}
+
+.editBtn:hover {
+  color: #2563eb;
+}
+
+.deleteBtn:hover {
+  color: #dc2626;
+}
