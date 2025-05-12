@@ -153,9 +153,9 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
               placeholder="Type number variations for each images you want"
               className={styles.input}
             />
-            <button onClick={handleStartBatch} className={styles.button}>
+            {/* <button onClick={handleStartBatch} className={styles.button}>
               Start Batch Process
-            </button>
+            </button> */}
           </div>
           <p className={styles.description}>
             Type number variations for each images you want

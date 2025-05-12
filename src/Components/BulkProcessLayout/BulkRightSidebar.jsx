@@ -1,9 +1,56 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import classes from "./styles.module.css";
 
 const BulkRightSidebar = ({ steps, removeStep, editStep, moveStep }) => {
   const [draggedIdx, setDraggedIdx] = useState(null);
+  const [editingStep, setEditingStep] = useState(null);
+  const [isValid, setIsValid] = useState(false);
   const dragOverIdx = useRef(null);
+
+  // Check if all required fields are filled
+  useEffect(() => {
+    const hasBackgroundReplacer = steps.some(step => step.tool === "BACKGROUND_REPLACER");
+    const hasImageUpscaler = steps.some(step => step.tool === "IMAGE_UPSCALER");
+
+    const isBackgroundReplacerValid = !hasBackgroundReplacer || 
+      steps.find(step => step.tool === "BACKGROUND_REPLACER")?.value?.trim() !== "";
+
+    const isImageUpscalerValid = !hasImageUpscaler || 
+      (steps.find(step => step.tool === "IMAGE_UPSCALER")?.value?.width && 
+       steps.find(step => step.tool === "IMAGE_UPSCALER")?.value?.height);
+
+    setIsValid(isBackgroundReplacerValid && isImageUpscalerValid);
+  }, [steps]);
+
+  const handleEdit = (idx, step) => {
+    setEditingStep(idx);
+  };
+
+  const handleSave = (idx, value) => {
+    editStep(idx, { ...steps[idx], value: value.trim() });
+    setEditingStep(null);
+  };
+
+  const handleInputChange = (idx, value) => {
+    editStep(idx, { ...steps[idx], value });
+  };
+
+  const handleDimensionChange = (idx, dimension, value) => {
+    const currentStep = steps[idx];
+    const currentValue = currentStep.value || {};
+    editStep(idx, {
+      ...currentStep,
+      value: {
+        ...currentValue,
+        [dimension]: value
+      }
+    });
+  };
+
+  const handleStartBatchProcess = () => {
+    if (!isValid) return;
+    console.log('Starting batch process with steps:', steps);
+  };
 
   return (
     <div className={classes.rightSidebar}>
@@ -94,11 +141,7 @@ const BulkRightSidebar = ({ steps, removeStep, editStep, moveStep }) => {
                 .replace(/\b\w/g, (l) => l.toUpperCase())}
             </span>
             <button
-              onClick={() =>
-                editStep(idx, {
-                  /* ... */
-                })
-              }
+              onClick={() => handleEdit(idx, step)}
               className={classes.editBtn}
             >
               ✏️
@@ -110,6 +153,61 @@ const BulkRightSidebar = ({ steps, removeStep, editStep, moveStep }) => {
               🗑️
             </button>
           </div>
+          
+          {/* Show input field for background replacer */}
+          {editingStep === idx && step.tool === "BACKGROUND_REPLACER" && (
+            <div className={classes.editSection}>
+              <textarea
+                placeholder="Enter background color or image URL"
+                value={step.value || ""}
+                onChange={(e) => handleInputChange(idx, e.target.value)}
+                className={classes.editInput}
+                rows={3}
+                required
+              />
+              {!step.value?.trim() && (
+                <span className={classes.errorText}>This field is required</span>
+              )}
+            </div>
+          )}
+
+          {/* Show dimension inputs for image upscaler */}
+          {editingStep === idx && step.tool === "AI_EXTENDER" && (
+            <div className={classes.editSection}>
+              <div className={classes.dimensionInputs}>
+                <div className={classes.dimensionGroup}>
+                  <label>Width (px)</label>
+                  <input
+                    type="number"
+                    placeholder="Enter width"
+                    value={step.value?.width || ""}
+                    onChange={(e) => handleDimensionChange(idx, 'width', e.target.value)}
+                    className={classes.dimensionInput}
+                    min="1"
+                    required
+                  />
+                  {!step.value?.width && (
+                    <span className={classes.errorText}>Width is required</span>
+                  )}
+                </div>
+                <div className={classes.dimensionGroup}>
+                  <label>Height (px)</label>
+                  <input
+                    type="number"
+                    placeholder="Enter height"
+                    value={step.value?.height || ""}
+                    onChange={(e) => handleDimensionChange(idx, 'height', e.target.value)}
+                    className={classes.dimensionInput}
+                    min="1"
+                    required
+                  />
+                  {!step.value?.height && (
+                    <span className={classes.errorText}>Height is required</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       ))}
 
@@ -122,6 +220,15 @@ const BulkRightSidebar = ({ steps, removeStep, editStep, moveStep }) => {
           Output Settings
         </div>
       </div>
+
+      {/* Start Batch Process Button */}
+      <button 
+        onClick={handleStartBatchProcess}
+        className={classes.startBatchButton}
+        disabled={!isValid}
+      >
+        Start Batch Process
+      </button>
     </div>
   );
 };

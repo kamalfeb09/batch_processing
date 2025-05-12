@@ -5,7 +5,7 @@ const ImageModal = createContext({});
 
 const ImageModalContext = ({ children }) => {
   const [currentScreen, setCurrentScreen] = useState(
-    CURRENT_SCREEN.LOGIN_SCREEN
+    CURRENT_SCREEN.BULK_PROCESS_SCREEN
   );
   const [email, setEmail] = useState("");
   const [imageExtension, setImageExtension] = useState("");

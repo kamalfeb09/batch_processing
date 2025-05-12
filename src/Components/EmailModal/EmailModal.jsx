@@ -23,7 +23,7 @@ const EmailModal = () => {
       console.log('Email:', email);
       console.log('Image Extension:', imageExtension);
       setIsOpen(false);
-      onClose();
+      // onClose();
     } catch (err) {
       setError(err.message);
       console.error('Error in form submission:', err);

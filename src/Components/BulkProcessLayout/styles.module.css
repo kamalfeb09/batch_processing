@@ -179,10 +179,147 @@
   padding: 0px !important
 }
 
-.editBtn:hover {
+/* .editBtn:hover {
   color: #2563eb;
-}
+} */
 
 .deleteBtn:hover {
   color: #dc2626;
+}
+
+.editSection {
+  margin-top: 10px;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.editInput {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+  line-height: 1.5;
+  background-color: #fff;
+  color: #000;
+}
+
+.editInput:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.saveBtn {
+  align-self: flex-end;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.saveBtn:hover {
+  background-color: #357abd;
+}
+
+.dimensionInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.dimensionGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dimensionGroup label {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.dimensionInput {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #000;
+}
+
+.dimensionInput:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.dimensionInput::-webkit-inner-spin-button,
+.dimensionInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.dimensionInput[type=number] {
+  -moz-appearance: textfield;
+}
+
+.errorText {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.startBatchButton {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px 24px;
+  background-color: #6729f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.startBatchButton:hover:not(:disabled) {
+  background-color: #5a1fd9;
+}
+
+.startBatchButton:active:not(:disabled) {
+  background-color: #4d1bb8;
+}
+
+.startBatchButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.startBatchButton:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.startBatchButton:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
 }
